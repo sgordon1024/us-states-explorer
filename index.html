@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The State of the States — every US state, mapped, ranked & matched</title>
-<meta name="description" content="An interactive atlas of all 50 states + DC: cost of living, taxes, climate, politics, outdoors and more. Explore the map, dig into 90 metrics, or take a quiz to find the state that fits you.">
-<link rel="stylesheet" href="assets/site.css?v=2">
+<title>The State of the States — every US state, mapped and compared</title>
+<meta name="description" content="An interactive atlas of all 50 states + DC: cost of living, taxes, climate, politics, outdoors and more. Explore the map, sort 99 metrics, or take a quiz to see which states match your preferences.">
+<link rel="stylesheet" href="assets/site.css?v=3">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
 </head>
 <body>
@@ -20,13 +20,14 @@
 
 <main id="main">
   <header class="hero">
-    <p class="kicker">50 states + DC · 90 metrics · one map</p>
-    <h1>Where in America should you actually be?</h1>
-    <p class="sub">Housing, taxes, weather, politics, parks, pizza styles — every state, measured side by side.
-      Poke the map, scroll the story, or take the quiz and let the data pick for you.</p>
+    <p class="kicker">An interactive atlas · compiled August 2026</p>
+    <h1>50 states and DC, compared across 99 metrics</h1>
+    <p class="sub">Housing, taxes, climate, health, politics, outdoors and culture — the same measurements for
+      every state, side by side. Explore the map, sort the full dataset, or answer a set of questions to see
+      which states align with your preferences.</p>
     <div class="cta-row">
-      <a class="btn primary" href="survey.html">Find my state →</a>
-      <a class="btn" href="#insights">See the highlights</a>
+      <a class="btn primary" href="survey.html">Take the quiz</a>
+      <a class="btn" href="#insights">View the highlights</a>
     </div>
   </header>
 
@@ -34,7 +35,7 @@
     <div class="wrap">
       <h2 id="map-h" style="margin:0 0 12px;font-size:1.4rem">The interactive map</h2>
       <div class="map-panel" id="map-mount"></div>
-      <p class="map-hint">Prefer rows and columns? Everything on this map (and 70+ more metrics) is in the
+      <p class="map-hint">Everything on this map — and 80+ more metrics — is in the
         <a href="explore.html">sortable data explorer</a>.</p>
     </div>
   </section>
@@ -45,18 +46,36 @@
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
       <p class="kicker">Migration · 2021–2025</p>
-      <h2 id="h-move">America is playing musical chairs — and the South is winning</h2>
-      <p class="lede">For every 1,000 residents, South Carolina gained 65 net movers from other states since 2021.
-        New York lost 52. That's the widest reshuffle in modern memory.</p>
+      <h2 id="h-move">Net domestic migration ranged from +65 to −52 per 1,000 residents</h2>
+      <p class="lede">Between 2021 and 2025, South Carolina gained a net 65 movers from other states for every
+        1,000 residents, the highest rate in the country. New York had the largest net outflow, at 52 per 1,000.</p>
       <div class="stat-row">
         <div class="stat-tile"><div class="big" data-countup="+65">+65</div><div class="who">South Carolina</div><div class="note">net inbound movers per 1,000 residents, 2021–25</div></div>
         <div class="stat-tile"><div class="big" data-countup="−52">−52</div><div class="who">New York</div><div class="note">net outbound movers per 1,000 residents, 2021–25</div></div>
-        <div class="stat-tile"><div class="big" data-countup="+10.4%">+10.4%</div><div class="who">Idaho</div><div class="note">fastest-growing population, 2020–25</div></div>
+        <div class="stat-tile"><div class="big" data-countup="+10.4%">+10.4%</div><div class="who">Idaho</div><div class="note">largest population growth, 2020–25</div></div>
       </div>
-      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Biggest winners (net domestic migration per 1k)</h3>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Largest net inflows (per 1,000 residents)</h3>
       <ul class="bar-list" id="bars-mig-in"></ul>
-      <h3 style="margin:22px 0 4px;font-size:1rem;color:var(--ink-2)">Biggest goodbyes</h3>
+      <h3 style="margin:22px 0 4px;font-size:1rem;color:var(--ink-2)">Largest net outflows</h3>
       <ul class="bar-list" id="bars-mig-out"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--aqua)" aria-labelledby="h-scale">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Scale</p>
+      <h2 id="h-scale">California's population is 67 times Wyoming's</h2>
+      <p class="lede">California (39.4M) has more residents than the 22 smallest jurisdictions combined.
+        Population density spans four orders of magnitude: 11,371 people per square mile in the District of
+        Columbia, 1.3 in Alaska.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="39,355,309">39,355,309</div><div class="who">California</div><div class="note">largest population (2025)</div></div>
+        <div class="stat-tile"><div class="big" data-countup="588,753">588,753</div><div class="who">Wyoming</div><div class="note">smallest state population</div></div>
+        <div class="stat-tile"><div class="big" data-countup="1.3">1.3</div><div class="who">Alaska</div><div class="note">people per square mile — DC has 11,371</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Largest populations (millions, 2025)</h3>
+      <ul class="bar-list" id="bars-pop"></ul>
     </div>
   </section>
 
@@ -64,16 +83,35 @@
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
       <p class="kicker">Housing · July 2026</p>
-      <h2 id="h-home">The same front door costs 4.7× more, depending on the state line</h2>
-      <p class="lede">A typical Hawaii home runs $833,877. In West Virginia, $178,702. Measured against local
-        incomes, a West Virginia home costs about 3 years of household income — a Hawaii home costs more than 8.</p>
+      <h2 id="h-home">Typical home values span $178,702 to $833,877 — a 4.7× range</h2>
+      <p class="lede">Hawaii has the highest typical home value; West Virginia the lowest. Measured against local
+        incomes, a typical West Virginia home costs about 2.9 years of median household income; a typical Hawaii
+        home costs 8.2.</p>
       <div class="stat-row">
-        <div class="stat-tile"><div class="big" data-countup="$833,877">$833,877</div><div class="who">Hawaii</div><div class="note">most expensive typical home</div></div>
-        <div class="stat-tile"><div class="big" data-countup="$178,702">$178,702</div><div class="who">West Virginia</div><div class="note">least expensive typical home</div></div>
-        <div class="stat-tile"><div class="big" data-countup="$1,176">$1,176</div><div class="who">Iowa</div><div class="note">lowest typical rent — Hawaii's is $3,067</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$833,877">$833,877</div><div class="who">Hawaii</div><div class="note">highest typical home value</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$178,702">$178,702</div><div class="who">West Virginia</div><div class="note">lowest typical home value</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$1,176">$1,176</div><div class="who">Iowa</div><div class="note">lowest typical rent; Hawaii's is $3,067</div></div>
       </div>
       <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Years of median income to buy the typical home</h3>
       <ul class="bar-list" id="bars-p2i"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--violet)" aria-labelledby="h-own">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Owning &amp; renting · 2026</p>
+      <h2 id="h-own">Homeownership ranges from 47.9% of households to 81.8%</h2>
+      <p class="lede">West Virginia and Mississippi have the highest homeownership rates; the District of
+        Columbia, New York and California the lowest. Rent consumes the largest share of median income in
+        Hawaii and New York, and the smallest in North Dakota, Iowa and South Dakota.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="81.8%">81.8%</div><div class="who">West Virginia</div><div class="note">highest homeownership rate</div></div>
+        <div class="stat-tile"><div class="big" data-countup="47.9%">47.9%</div><div class="who">District of Columbia</div><div class="note">lowest homeownership rate — New York is 55.9%</div></div>
+        <div class="stat-tile"><div class="big" data-countup="19%">19%</div><div class="who">Iowa</div><div class="note">typical rent as a share of median income; Hawaii's is 36%</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Homeownership rate — highest and lowest</h3>
+      <ul class="bar-list" id="bars-own"></ul>
     </div>
   </section>
 
@@ -81,20 +119,21 @@
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
       <p class="kicker">Cost of living</p>
-      <h2 id="h-pay">The paycheck illusion: where $75k beats $100k</h2>
-      <p class="lede">Adjust every state's median household income for what things actually cost there, and the
-        leaderboard scrambles. Utah and New Hampshire quietly out-earn coastal giants, while a big California
-        salary shrinks in the wash.</p>
+      <h2 id="h-pay">Adjusting incomes for local prices reorders the rankings</h2>
+      <p class="lede">Dividing each state's median household income by its price level changes the picture:
+        Utah rises to 4th and New Hampshire to 5th, while California's $100,130 median buys the equivalent of
+        $90,435 at national-average prices. Arkansas and Mississippi have the lowest overall price levels, about
+        13% below the US average.</p>
       <div class="stat-row">
-        <div class="stat-tile"><div class="big" data-countup="$97,506">$97,506</div><div class="who">Utah</div><div class="note">median income adjusted for cost of living — 4th best in the country</div></div>
-        <div class="stat-tile"><div class="big" data-countup="$90,435">$90,435</div><div class="who">California</div><div class="note">what its $100,130 median actually buys</div></div>
-        <div class="stat-tile"><div class="big" data-countup="13%">13%</div><div class="who">Arkansas &amp; Mississippi</div><div class="note">cheaper than the national average — the lowest prices in America</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$97,506">$97,506</div><div class="who">Utah</div><div class="note">median income adjusted for cost of living — 4th highest</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$90,435">$90,435</div><div class="who">California</div><div class="note">purchasing power of its $100,130 median income</div></div>
+        <div class="stat-tile"><div class="big" data-countup="86.9">86.9</div><div class="who">Arkansas</div><div class="note">lowest cost-of-living index (US = 100)</div></div>
       </div>
       <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Median income, adjusted for local prices</h3>
       <ul class="bar-list" id="bars-adj"></ul>
       <div class="scatter-wrap" id="scatter-pay" role="group" aria-label="Scatter plot of median income against cost of living for all 51 jurisdictions. Each dot is a state button."></div>
-      <p class="scatter-note">Every dot is a state — click one for its profile. Up = expensive, right = high-earning.
-        The magic quadrant is bottom-right: big paychecks, small price tags.</p>
+      <p class="scatter-note">Each dot is a state — click one for its profile. Vertical position = price level;
+        horizontal position = median household income. The dashed line marks US-average prices.</p>
     </div>
   </section>
 
@@ -102,17 +141,35 @@
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
       <p class="kicker">Taxes · 2026</p>
-      <h2 id="h-tax">The taxman takes 15.9% in New York — and 4.6% in Alaska</h2>
-      <p class="lede">Nine states charge no tax on wage income at all: Alaska, Florida, Nevada, New Hampshire,
-        South Dakota, Tennessee, Texas, Washington and Wyoming. Wyoming ranks #1 in the country for overall
-        tax competitiveness.</p>
+      <h2 id="h-tax">State &amp; local taxes range from 4.6% of income to 15.9%</h2>
+      <p class="lede">Alaska has the lowest combined state-and-local tax burden; New York the highest. Nine
+        states levy no tax on wage income: Alaska, Florida, Nevada, New Hampshire, South Dakota, Tennessee,
+        Texas, Washington and Wyoming. The Tax Foundation ranks Wyoming's overall tax code the most competitive.</p>
       <div class="stat-row">
-        <div class="stat-tile"><div class="big" data-countup="9">9</div><div class="who">states</div><div class="note">with zero tax on wages</div></div>
-        <div class="stat-tile"><div class="big" data-countup="15.9%">15.9%</div><div class="who">New York</div><div class="note">heaviest state &amp; local tax burden as a share of income</div></div>
-        <div class="stat-tile"><div class="big" data-countup="13.3%">13.3%</div><div class="who">California</div><div class="note">highest top income-tax rate</div></div>
+        <div class="stat-tile"><div class="big" data-countup="9">9</div><div class="who">states</div><div class="note">levy no tax on wage income</div></div>
+        <div class="stat-tile"><div class="big" data-countup="15.9%">15.9%</div><div class="who">New York</div><div class="note">highest state &amp; local tax burden as a share of income</div></div>
+        <div class="stat-tile"><div class="big" data-countup="13.3%">13.3%</div><div class="who">California</div><div class="note">highest top marginal income-tax rate</div></div>
       </div>
       <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Total state &amp; local tax burden (% of income)</h3>
       <ul class="bar-list" id="bars-tax"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--magenta)" aria-labelledby="h-energy">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Energy prices · 2026</p>
+      <h2 id="h-energy">Residential electricity costs 12.3¢/kWh in Idaho and 52¢ in Hawaii</h2>
+      <p class="lede">The same kilowatt-hour costs 4.2 times more in Hawaii than in Idaho. At the pump, state
+        gasoline taxes and fees range from 8.9¢ per gallon in Alaska to 73.6¢ in California — before the 18.4¢
+        federal tax.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="52.0¢">52.0¢</div><div class="who">Hawaii</div><div class="note">highest residential electricity price per kWh</div></div>
+        <div class="stat-tile"><div class="big" data-countup="12.3¢">12.3¢</div><div class="who">Idaho</div><div class="note">lowest residential electricity price per kWh</div></div>
+        <div class="stat-tile"><div class="big" data-countup="73.6¢">73.6¢</div><div class="who">California</div><div class="note">highest state gas tax per gallon; Alaska's is 8.9¢</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Residential electricity price — highest and lowest (¢/kWh)</h3>
+      <ul class="bar-list" id="bars-elec"></ul>
     </div>
   </section>
 
@@ -120,12 +177,13 @@
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
       <p class="kicker">Health &amp; safety</p>
-      <h2 id="h-life">Nine years of life separate Hawaii and Mississippi</h2>
-      <p class="lede">Life expectancy runs from 79.9 years in Hawaii to 70.9 in Mississippi. Safety has a
-        similar spread: Maine records about 100 violent crimes per 100k people — New Mexico, about 717.</p>
+      <h2 id="h-life">Nine years of life expectancy separate Hawaii and Mississippi</h2>
+      <p class="lede">Life expectancy at birth runs from 79.9 years in Hawaii to 70.9 in Mississippi. Violent
+        crime rates span a similar range: about 100 incidents per 100,000 people in Maine, and about 717 in
+        New Mexico.</p>
       <div class="stat-row">
-        <div class="stat-tile"><div class="big" data-countup="79.9">79.9</div><div class="who">Hawaii</div><div class="note">longest life expectancy (years)</div></div>
-        <div class="stat-tile"><div class="big" data-countup="100">100</div><div class="who">Maine</div><div class="note">fewest violent crimes per 100k — the safest state</div></div>
+        <div class="stat-tile"><div class="big" data-countup="79.9">79.9</div><div class="who">Hawaii</div><div class="note">highest life expectancy (years)</div></div>
+        <div class="stat-tile"><div class="big" data-countup="100">100</div><div class="who">Maine</div><div class="note">lowest violent-crime rate per 100k</div></div>
         <div class="stat-tile"><div class="big" data-countup="$31,629">$31,629</div><div class="who">Washington, DC</div><div class="note">highest K-12 spending per pupil; Idaho spends $10,291</div></div>
       </div>
       <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Life expectancy at birth (years)</h3>
@@ -137,17 +195,35 @@
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
       <p class="kicker">Happiness &amp; well-being · 2026</p>
-      <h2 id="h-happy">Hawaii is the happiest state. New Jersey is… fourth?!</h2>
-      <p class="lede">WalletHub's happiness index blends emotional well-being, work environment and community.
-        The podium: Hawaii, Maryland, Nebraska — with New Jersey right behind. West Virginia finishes 50th,
-        and Arkansas reports the most days of mental distress.</p>
+      <h2 id="h-happy">Hawaii ranks first on WalletHub's happiness index; West Virginia ranks 50th</h2>
+      <p class="lede">WalletHub's index combines measures of emotional well-being, work environment and
+        community. The top five: Hawaii, Maryland, Nebraska, New Jersey, Connecticut. On the CDC's measure of
+        frequent mental distress, Hawaii and North Dakota report the lowest rates and Arkansas the highest.</p>
       <div class="stat-row">
-        <div class="stat-tile"><div class="big" data-countup="#1">#1</div><div class="who">Hawaii</div><div class="note">happiest state (score 65.5 of 100)</div></div>
-        <div class="stat-tile"><div class="big" data-countup="#50">#50</div><div class="who">West Virginia</div><div class="note">the least happy (score 32.0)</div></div>
-        <div class="stat-tile"><div class="big" data-countup="12.6%">12.6%</div><div class="who">Hawaii &amp; North Dakota</div><div class="note">fewest adults reporting frequent mental distress — Arkansas has 19.9%</div></div>
+        <div class="stat-tile"><div class="big" data-countup="#1">#1</div><div class="who">Hawaii</div><div class="note">happiness rank (score 65.5 of 100)</div></div>
+        <div class="stat-tile"><div class="big" data-countup="#50">#50</div><div class="who">West Virginia</div><div class="note">happiness rank (score 32.0)</div></div>
+        <div class="stat-tile"><div class="big" data-countup="12.6%">12.6%</div><div class="who">Hawaii &amp; North Dakota</div><div class="note">lowest share of adults reporting frequent mental distress; Arkansas: 19.9%</div></div>
       </div>
       <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Happiness score, top 8 (WalletHub 2026, 0–100)</h3>
       <ul class="bar-list" id="bars-happy"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--aqua)" aria-labelledby="h-age">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Age</p>
+      <h2 id="h-age">Median age spans 31.5 years in Utah to 45.0 in Maine</h2>
+      <p class="lede">Utah is the youngest state by a wide margin and also has the highest birth rate (13.3 per
+        1,000 residents). Maine, New Hampshire, Vermont and West Virginia are the oldest. West Virginia has the
+        highest death rate, at 14.1 per 1,000.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="31.5">31.5</div><div class="who">Utah</div><div class="note">lowest median age</div></div>
+        <div class="stat-tile"><div class="big" data-countup="45.0">45.0</div><div class="who">Maine</div><div class="note">highest median age</div></div>
+        <div class="stat-tile"><div class="big" data-countup="13.3">13.3</div><div class="who">Utah</div><div class="note">births per 1,000 residents — the highest rate</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Median age — youngest and oldest</h3>
+      <ul class="bar-list" id="bars-age"></ul>
     </div>
   </section>
 
@@ -155,17 +231,17 @@
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
       <p class="kicker">Climate &amp; the outdoors</p>
-      <h2 id="h-wild">Pick your weather: 71°F Florida or 28°F Alaska</h2>
-      <p class="lede">Alaska has 6,640 miles of coastline and a 20,310-foot mountain. Arizona gets the most
-        sun in the nation. New York — yes, New York — has more ski areas than Colorado. America's outdoors
-        does not fit one stereotype.</p>
+      <h2 id="h-wild">Average temperatures range from 28°F (Alaska) to 71°F (Florida)</h2>
+      <p class="lede">Alaska has 6,640 miles of coastline and the highest peak (20,310 ft). Arizona has the
+        strongest solar resource. New York has the most ski areas. California has the most national parks,
+        with nine.</p>
       <div class="stat-row">
-        <div class="stat-tile"><div class="big" data-countup="6,640">6,640</div><div class="who">Alaska</div><div class="note">miles of coastline — Michigan is #2 with 3,224 (all Great Lakes)</div></div>
-        <div class="stat-tile"><div class="big" data-countup="52">52</div><div class="who">New York</div><div class="note">ski areas, the most in America</div></div>
+        <div class="stat-tile"><div class="big" data-countup="6,640">6,640</div><div class="who">Alaska</div><div class="note">miles of coastline — Michigan is second with 3,224, all on the Great Lakes</div></div>
+        <div class="stat-tile"><div class="big" data-countup="52">52</div><div class="who">New York</div><div class="note">ski areas, the most of any state</div></div>
         <div class="stat-tile"><div class="big" data-countup="9">9</div><div class="who">California</div><div class="note">national parks — Alaska has 8, Utah 5</div></div>
-        <div class="stat-tile"><div class="big" data-countup="$5">$5</div><div class="who">Hawaii</div><div class="note">cheapest resident fishing license in the country</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$5">$5</div><div class="who">Hawaii</div><div class="note">lowest resident annual fishing license price</div></div>
       </div>
-      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Solar resource (kWh/m²/day) — the off-grid dream tier</h3>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Solar resource (kWh/m²/day), top six</h3>
       <ul class="bar-list" id="bars-solar"></ul>
     </div>
   </section>
@@ -173,33 +249,34 @@
   <section class="insight" style="--accent:var(--violet)" aria-labelledby="h-scenic">
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
-      <p class="kicker">The postcard index</p>
-      <h2 id="h-scenic">The most scenic states, measured — not vibes</h2>
-      <p class="lede">We scored every state 0–100 on five equal ingredients: mountain height, coastline,
-        forest cover, national parks and public land. Alaska laps the field; the West Coast sweep is real;
-        and North Carolina sneaks into the top six on forest + peaks + shoreline.</p>
+      <p class="kicker">Landscape</p>
+      <h2 id="h-scenic">A five-part scenery index: terrain, coastline, forest, parks, public land</h2>
+      <p class="lede">Each state is scored 0–100 on the average of five percentile ranks: highest-point
+        elevation, coastline, forest cover, national parks and federal public land. Alaska scores highest at
+        86.6, followed by California, Washington, Hawaii and Oregon. Iowa has the lowest composite, at 13.4.</p>
       <div class="podium" id="podium-scenic"></div>
-      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Postcard index, top 10 (0–100)</h3>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Scenery index, top 10 (0–100)</h3>
       <ul class="bar-list" id="bars-scenic"></ul>
-      <p class="scatter-note">Composite of percentile ranks — hover “Scenery index” anywhere on the site for the recipe. Iowa scores 13. Iowa, we still love you.</p>
+      <p class="scatter-note">A composite of equal-weighted percentile ranks — see the definition anywhere
+        “Scenery index” appears, or the <a href="explore.html#glossary">glossary</a>.</p>
     </div>
   </section>
 
   <section class="insight" style="--accent:var(--blue)" aria-labelledby="h-water">
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
-      <p class="kicker">Clean water &amp; wild things</p>
-      <h2 id="h-water">Thirteen states deliver tap water with zero serious violations</h2>
-      <p class="lede">Share of residents on community water systems with health-based violations: 0.0% in
-        thirteen states — while West Virginia (10.2%) and New Jersey (8.9%) have the most affected residents.
-        And for the animals: Oregon has America's strongest animal-protection laws, with Massachusetts and
-        Maine close behind.</p>
+      <p class="kicker">Water &amp; wildlife</p>
+      <h2 id="h-water">In thirteen states, 0.0% of residents were on water systems with serious violations</h2>
+      <p class="lede">The EPA measure counts the share of residents served by community water systems with
+        health-based violations. Thirteen states recorded 0.0%; West Virginia (10.2%) and New Jersey (8.9%) had
+        the highest shares. Separately, the Animal Legal Defense Fund ranks Oregon's animal-protection laws
+        strongest, followed by Massachusetts and Maine; North Dakota ranks 50th.</p>
       <div class="stat-row">
-        <div class="stat-tile"><div class="big" data-countup="0.0%">0.0%</div><div class="who">13 states</div><div class="note">population on water systems with serious violations — incl. HI, ME, MA, UT, NC</div></div>
-        <div class="stat-tile"><div class="big" data-countup="#1">#1</div><div class="who">Oregon</div><div class="note">strongest animal-protection laws, three years running (ALDF)</div></div>
-        <div class="stat-tile"><div class="big" data-countup="89.5%">89.5%</div><div class="who">Maine</div><div class="note">most forested state — North Dakota is 1.7%</div></div>
+        <div class="stat-tile"><div class="big" data-countup="0.0%">0.0%</div><div class="who">13 states</div><div class="note">share of residents on systems with health-based violations — incl. HI, ME, MA, UT, NC</div></div>
+        <div class="stat-tile"><div class="big" data-countup="#1">#1</div><div class="who">Oregon</div><div class="note">ALDF animal-protection-laws rank, 2025</div></div>
+        <div class="stat-tile"><div class="big" data-countup="89.5%">89.5%</div><div class="who">Maine</div><div class="note">highest forest cover; North Dakota's is 1.7%</div></div>
       </div>
-      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Most residents on systems with violations (%)</h3>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Highest share of residents on systems with violations (%)</h3>
       <ul class="bar-list" id="bars-water"></ul>
       <h3 style="margin:22px 0 4px;font-size:1rem;color:var(--ink-2)">Strongest animal-protection laws (ALDF rank)</h3>
       <ul class="bar-list" id="bars-animal"></ul>
@@ -209,13 +286,14 @@
   <section class="insight" style="--accent:var(--orange)" aria-labelledby="h-road">
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
-      <p class="kicker">Life on the road</p>
-      <h2 id="h-road">Where the road trip never has to end</h2>
-      <p class="lede" id="road-lede">Some states let you sleep in your vehicle at any highway rest area, skip
-        annual car inspections entirely, and camp free on vast public land. Others will knock on your window
-        at 2 a.m. Here's the freedom map for anyone who measures home in miles.</p>
+      <p class="kicker">Vehicle &amp; travel rules</p>
+      <h2 id="h-road">Rest-area, inspection and public-land rules vary widely by state</h2>
+      <p class="lede" id="road-lede">29 states allow overnight parking at public highway rest areas; 7 prohibit
+        it, and the rest post time limits. 38 jurisdictions require no periodic vehicle safety inspection.
+        Federal public land — where dispersed camping is generally permitted — ranges from 0.3% of the state
+        to 80.1%.</p>
       <div class="stat-row" id="road-tiles"></div>
-      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">The road-tripper's dream tier</h3>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Overnight rest areas + no periodic inspection, ranked by federal land share</h3>
       <ul class="bar-list" id="bars-road"></ul>
       <p class="scatter-note" id="road-note"></p>
     </div>
@@ -224,13 +302,14 @@
   <section class="insight" style="--accent:var(--aqua)" aria-labelledby="h-boat">
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
-      <p class="kicker">Rules of the water</p>
-      <h2 id="h-boat">Where you can just… get in the boat and go</h2>
-      <p class="lede" id="boat-lede">Boating rules range from “no card, no registration, no questions” to
-        mandatory education for every operator and registration stickers on your kayak. If you like your
-        water low-paperwork, these are your states.</p>
+      <p class="kicker">Boating rules</p>
+      <h2 id="h-boat">Five states require no boater education; ten require it for all operators</h2>
+      <p class="lede" id="boat-lede">Alaska, Arizona, Idaho, South Dakota and Wyoming have no mandatory boater
+        education. Most states use age-based cutoffs that exempt many adults. Ten jurisdictions require
+        certification for every operator. Non-motorized canoes and kayaks must be registered in Ohio and DC,
+        and need permits or stickers in seven other states.</p>
       <div class="stat-row" id="boat-tiles"></div>
-      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Most relaxed boating states</h3>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Fewest boating requirements</h3>
       <ul class="bar-list" id="bars-boat"></ul>
       <p class="scatter-note" id="boat-note"></p>
     </div>
@@ -240,30 +319,48 @@
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
       <p class="kicker">Politics · 2024–2026</p>
-      <h2 id="h-pol">Wyoming went +46 red. Vermont went +32 blue. Wisconsin? 0.9 points.</h2>
-      <p class="lede">The 2024 map had blowouts on both flanks and a handful of true coin-flips. Meanwhile
-        recreational cannabis is now legal in 25 jurisdictions, and about half of all states let citizens
-        write laws directly onto the ballot.</p>
+      <h2 id="h-pol">2024 margins ranged from R +45.8 (Wyoming) to D +83.8 (DC)</h2>
+      <p class="lede">Among states, Wyoming had the widest Republican margin and Vermont the widest Democratic
+        margin (D +31.5). Wisconsin was the closest, at 0.9 points. Recreational cannabis is legal in 25
+        jurisdictions, and citizens can place initiatives on the ballot in about half of the states.</p>
       <div class="stat-row">
-        <div class="stat-tile"><div class="big" data-countup="R +45.8">R +45.8</div><div class="who">Wyoming</div><div class="note">the reddest 2024 margin (DC was bluest at D +83.8)</div></div>
-        <div class="stat-tile"><div class="big" data-countup="0.9">0.9</div><div class="who">Wisconsin</div><div class="note">points — the closest state of 2024</div></div>
+        <div class="stat-tile"><div class="big" data-countup="R +45.8">R +45.8</div><div class="who">Wyoming</div><div class="note">widest Republican margin among states</div></div>
+        <div class="stat-tile"><div class="big" data-countup="0.9">0.9</div><div class="who">Wisconsin</div><div class="note">points — the closest 2024 state margin</div></div>
         <div class="stat-tile"><div class="big" data-countup="25">25</div><div class="who">jurisdictions</div><div class="note">with legal recreational cannabis</div></div>
       </div>
-      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">All 51, bluest to reddest — every bar is a state</h3>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">All 51, ordered by 2024 margin — each bar is a state</h3>
       <div class="strip-51" id="strip-politics" role="group" aria-label="All 51 jurisdictions ordered from most Democratic to most Republican 2024 margin. Each bar is a state button."></div>
-      <div class="strip-caption"><span>← DC, D +84</span><span>Wyoming, R +46 →</span></div>
+      <div class="strip-caption"><span>← DC, D +83.8</span><span>Wyoming, R +45.8 →</span></div>
       <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">The five closest states of 2024 (margin in points)</h3>
       <ul class="bar-list" id="bars-close"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--violet)" aria-labelledby="h-history">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Statehood</p>
+      <h2 id="h-history">172 years separate the first state and the last two</h2>
+      <p class="lede">Delaware ratified the Constitution in 1787; Alaska and Hawaii joined in 1959. Thirteen
+        states had joined by 1790. The single biggest wave came in 1889–90, when six states — the Dakotas,
+        Montana, Washington, Idaho and Wyoming — were admitted within nine months.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="1787">1787</div><div class="who">Delaware</div><div class="note">first state</div></div>
+        <div class="stat-tile"><div class="big" data-countup="6">6</div><div class="who">states in 1889–90</div><div class="note">the largest admission wave: ND, SD, MT, WA, ID, WY</div></div>
+        <div class="stat-tile"><div class="big" data-countup="1959">1959</div><div class="who">Alaska &amp; Hawaii</div><div class="note">the last two states</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Every admission, 1787–1959 — each dot is a state</h3>
+      <div class="timeline" id="timeline-states" role="group" aria-label="Timeline of statehood from 1787 to 1959. Each dot is a state button."></div>
     </div>
   </section>
 
   <section class="insight" style="--accent:var(--aqua)" aria-labelledby="h-food">
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
-      <p class="kicker">Intermission</p>
-      <h2 id="h-food">The national menu</h2>
-      <p class="lede">One iconic dish per state. Yes, this section is subjective. No, we will not be taking
-        questions about the loose-meat sandwich.</p>
+      <p class="kicker">Culture</p>
+      <h2 id="h-food">One dish per state</h2>
+      <p class="lede">The dish most commonly associated with each state. This list is editorial and subjective —
+        it's the one column in the dataset with no source but tradition.</p>
       <div class="food-strip" id="food-strip"></div>
     </div>
   </section>
@@ -271,13 +368,13 @@
   <section class="insight" style="--accent:var(--blue)" aria-labelledby="h-cta">
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal" style="text-align:center">
-      <p class="kicker">Your turn</p>
-      <h2 id="h-cta" style="margin-inline:auto">So… which state is <em>yours</em>?</h2>
-      <p class="lede" style="margin-inline:auto">Two minutes or ten — answer honestly and the data will do the rest.
-        Every one of the 51 can win.</p>
+      <p class="kicker">Try it</p>
+      <h2 id="h-cta" style="margin-inline:auto">See which states match your preferences</h2>
+      <p class="lede" style="margin-inline:auto">Two quizzes and a 20-fader mixing board score all 51
+        jurisdictions against your answers. Every state is a possible result.</p>
       <div class="cta-row" style="justify-content:center;margin-top:22px">
-        <a class="btn primary" href="survey.html">Take the quiz →</a>
-        <a class="btn" href="explore.html">Browse all 90 metrics</a>
+        <a class="btn primary" href="survey.html">Take the quiz</a>
+        <a class="btn" href="explore.html">Browse all the data</a>
       </div>
     </div>
   </section>
@@ -288,17 +385,19 @@
 <footer class="site-footer">
   <div class="wrap">
     <p><strong>Sources:</strong> US Census Bureau, BEA, BLS, Zillow, Tax Foundation, CDC/NCHS, FBI, EIA, NOAA, NREL,
-      Pew Research Center, Giffords Law Center, NCSL, HSLDA and state agencies. Compiled August 2026.</p>
-    <p>Ranks include the District of Columbia as a 51st jurisdiction — it distorts density, crime and income
-      comparisons, so read those with a grain of salt. License prices, park counts and ski-area counts are approximate.</p>
-    <p>Map outline: Wikimedia Commons (public domain). Built for fun — verify anything before making a legal or financial decision on it.
+      Pew Research Center, Giffords Law Center, NCSL, HSLDA, WalletHub, America's Health Rankings, EPA, USDA Forest
+      Service, ALDF, and state agencies. Compiled August 2026.</p>
+    <p>The District of Columbia is included as a 51st jurisdiction; it is an outlier on density, crime and income
+      measures. License prices, park counts and ski-area counts are approximate. Rules and rates change — verify
+      anything before making a legal or financial decision on it.</p>
+    <p>Map outline: Wikimedia Commons (public domain).
       · <a href="explore.html#glossary">Glossary</a> · <a href="analytics.html">Quiz response analytics</a></p>
   </div>
 </footer>
 
-<script src="assets/data.js?v=2"></script>
-<script src="assets/common.js?v=2"></script>
-<script src="assets/map.js?v=2"></script>
-<script src="assets/insights.js?v=2"></script>
+<script src="assets/data.js?v=3"></script>
+<script src="assets/common.js?v=3"></script>
+<script src="assets/map.js?v=3"></script>
+<script src="assets/insights.js?v=3"></script>
 </body>
 </html>

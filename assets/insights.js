@@ -47,6 +47,44 @@
   // ----- v2: happiness -----
   bars('bars-happy', SS.topStates('wellbeingScore', 8, true), s => s.wellbeingScore, (s, v) => n1(v));
 
+  // ----- v3: scale, ownership, energy, age -----
+  bars('bars-pop', SS.topStates('pop', 6, true), s => s.pop, (s, v) => (v / 1e6).toFixed(1) + 'M');
+  const ownHi = SS.topStates('homeownership', 4, true);
+  const ownLo = SS.topStates('homeownership', 4, false).reverse();
+  bars('bars-own', ownHi.concat(ownLo), s => s.homeownership, (s, v) => n1(v) + '%', 100);
+  const elecHi = SS.topStates('elecPrice', 4, true);
+  const elecLo = SS.topStates('elecPrice', 4, false).reverse();
+  bars('bars-elec', elecHi.concat(elecLo), s => s.elecPrice, (s, v) => n1(v) + '¢');
+  const ageLo = SS.topStates('medianAge', 4, false);
+  const ageHi = SS.topStates('medianAge', 4, true).reverse();
+  bars('bars-age', ageLo.concat(ageHi), s => s.medianAge, (s, v) => n1(v) + ' yrs', 50);
+
+  // ----- v3: statehood timeline -----
+  (function timeline() {
+    const mount = document.getElementById('timeline-states');
+    if (!mount) return;
+    const rows = S.filter(s => s.abbr !== 'DC').slice().sort((a, b) => a.statehood - b.statehood);
+    const y0 = 1787, y1 = 1959;
+    // stagger dots that share nearby years across 4 lanes
+    const laneLast = [-99, -99, -99, -99];
+    const dots = rows.map(s => {
+      const x = (s.statehood - y0) / (y1 - y0) * 100;
+      let lane = laneLast.findIndex(lx => x - lx > 2.4);
+      if (lane === -1) lane = laneLast.indexOf(Math.min.apply(null, laneLast));
+      laneLast[lane] = x;
+      return `<button type="button" class="tl-dot" data-state="${s.abbr}"
+        style="left:${x.toFixed(2)}%;top:${14 + lane * 22}px"
+        aria-label="${s.name}: statehood ${s.statehood}. Open details."
+        title="${s.name} · ${s.statehood}"></button>`;
+    }).join('');
+    const ticks = [1787, 1820, 1850, 1880, 1912, 1959].map(y =>
+      `<span class="tl-tick" style="left:${((y - y0) / (y1 - y0) * 100).toFixed(1)}%">${y}</span>`).join('');
+    mount.innerHTML = `<div class="tl-track" aria-hidden="true"></div>${dots}${ticks}`;
+    mount.addEventListener('click', e => {
+      const b = e.target.closest('.tl-dot'); if (b) SS.openStateDialog(b.dataset.state);
+    });
+  })();
+
   // ----- v2: scenery -----
   (function scenic() {
     const podium = document.getElementById('podium-scenic');
@@ -81,12 +119,12 @@
     const dream = S.filter(s => s.restOvernight === 'Allowed' && s.vehicleInspection === 'No')
       .sort((a, b) => b.fedLand - a.fedLand);
     tiles.innerHTML = `
-      <div class="stat-tile"><div class="big" data-countup="${allowed.length}">${allowed.length}</div><div class="who">states</div><div class="note">let you sleep overnight at highway rest areas</div></div>
+      <div class="stat-tile"><div class="big" data-countup="${allowed.length}">${allowed.length}</div><div class="who">states</div><div class="note">allow overnight parking at highway rest areas</div></div>
       <div class="stat-tile"><div class="big" data-countup="${noInsp.length}">${noInsp.length}</div><div class="who">jurisdictions</div><div class="note">require no periodic vehicle safety inspection</div></div>
-      <div class="stat-tile"><div class="big" data-countup="80.1%">80.1%</div><div class="who">Nevada</div><div class="note">federal public land + open rest areas + no inspections: the full trifecta</div></div>`;
-    bars('bars-road', dream.slice(0, 8), s => s.fedLand, (s, v) => n1(v) + '% public land', 100);
+      <div class="stat-tile"><div class="big" data-countup="80.1%">80.1%</div><div class="who">Nevada</div><div class="note">highest federal-land share among states that also allow rest-area overnights and skip inspections</div></div>`;
+    bars('bars-road', dream.slice(0, 8), s => s.fedLand, (s, v) => n1(v) + '% federal land', 100);
     document.getElementById('road-note').textContent =
-      'Tier = overnight rest-area parking allowed AND no periodic inspection, ranked by federal public land (free dispersed camping country). Rules move: Virginia banned overnight rest-area parking in March 2026; New Hampshire and Louisiana just ended vehicle inspections. Time limits vary by site — check signs.';
+      'List = states that allow overnight rest-area parking and require no periodic inspection, ordered by federal public land share. Rules change: Virginia prohibited overnight rest-area parking in March 2026; New Hampshire and Louisiana ended periodic vehicle inspections in 2026. Time limits vary by site — posted signs govern.';
   })();
 
   // ----- v2: rules of the water -----
@@ -99,13 +137,13 @@
     const none = S.filter(s => s.boaterEd === 'None');
     const allAges = S.filter(s => s.boaterEd === 'All ages');
     tiles.innerHTML = `
-      <div class="stat-tile"><div class="big" data-countup="${none.length}">${none.length}</div><div class="who">states</div><div class="note">require no boater education at all: ${none.map(s => s.abbr).join(', ')}</div></div>
-      <div class="stat-tile"><div class="big" data-countup="3">3</div><div class="who">AK · AZ · SD</div><div class="note">zero paperwork: no boater card, no kayak registration, nothing</div></div>
-      <div class="stat-tile"><div class="big" data-countup="${allAges.length}">${allAges.length}</div><div class="who">jurisdictions</div><div class="note">at the other end, require certification for every operator</div></div>`;
+      <div class="stat-tile"><div class="big" data-countup="${none.length}">${none.length}</div><div class="who">states</div><div class="note">require no boater education: ${none.map(s => s.abbr).join(', ')}</div></div>
+      <div class="stat-tile"><div class="big" data-countup="3">3</div><div class="who">AK · AZ · SD</div><div class="note">no boater-education card and no paddlecraft registration or permits</div></div>
+      <div class="stat-tile"><div class="big" data-countup="${allAges.length}">${allAges.length}</div><div class="who">jurisdictions</div><div class="note">require boater certification for every operator</div></div>`;
     bars('bars-boat', relaxed, s => score(s), (s, v) =>
-      (s.boaterEd === 'None' ? 'no card' : 'card: some ages') + (s.kayakReg === 'No' ? ' · no stickers' : ' · some stickers'), 3);
+      (s.boaterEd === 'None' ? 'no card' : 'card: some ages') + (s.kayakReg === 'No' ? ' · no permits' : ' · some permits'), 3);
     document.getElementById('boat-note').textContent =
-      '“Relaxed” = no mandatory boater-education card for adults + no registration/permits on paddlecraft. Everyone still enforces sober boating — 0.08 applies on water everywhere.';
+      'Ordered by fewest requirements: no mandatory boater-education card for adults, then no registration or permits for non-motorized paddlecraft. Operating-under-the-influence laws (0.08) apply in every state.';
   })();
 
   // ----- scatter: income (x) vs cost of living (y) -----

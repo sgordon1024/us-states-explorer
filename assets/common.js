@@ -102,7 +102,7 @@
     urban: 'Share of residents living in Census-defined urban areas (2020).',
     religiosity: 'Share of adults who say religion is very important in their lives (Pew, 2023–24).',
     timezone: 'The state’s time zone(s).',
-    food: 'The dish most associated with the state. Editorial. Fighting words welcome.',
+    food: 'The dish most commonly associated with the state. Editorial and subjective.',
     happinessRank: 'WalletHub’s composite happiness ranking: emotional well-being, work environment, community. 1 = happiest.',
     mentalDistress: 'Adults reporting 14+ mentally unhealthy days per month (America’s Health Rankings). Lower is better.',
     waterViol: 'Share of residents served by community water systems with health-based violations. Lower = cleaner tap water.',
