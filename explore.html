@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data explorer — The State of the States</title>
+<meta name="description" content="Sort and filter all 50 states + DC across 90 metrics: economy, housing, taxes, health, education, safety, climate, politics, outdoors and culture.">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <a class="brand" href="index.html"><span class="flag-dot" aria-hidden="true"></span>The State of the States</a>
+  <a class="nav-link" href="index.html">Map &amp; insights</a>
+  <a class="nav-link" href="explore.html" aria-current="page">Explore the data</a>
+  <a class="nav-link" href="survey.html">Find your state</a>
+</nav>
+
+<main id="main" class="wrap">
+  <h1 style="margin:34px 0 6px;font-size:clamp(1.7rem,4.5vw,2.6rem)">Explore the data</h1>
+  <p style="color:var(--ink-2);max-width:64ch">All 51 jurisdictions × 90 metrics. Pick a category, click any
+    column header to sort, and use the filters to narrow the field. Click a state's name for its full profile.</p>
+
+  <div class="toolbar" role="search">
+    <div class="field">
+      <span id="lbl-group">Category</span>
+      <select id="group-select" aria-labelledby="lbl-group"></select>
+    </div>
+    <div class="field">
+      <span id="lbl-region">Region</span>
+      <select id="region-select" aria-labelledby="lbl-region">
+        <option value="">All regions</option>
+        <option>Northeast</option><option>Midwest</option><option>South</option><option>West</option>
+      </select>
+    </div>
+    <div class="field">
+      <span><label for="state-search">Search states</label></span>
+      <input type="search" id="state-search" placeholder="e.g. Montana" autocomplete="off">
+    </div>
+    <div class="field">
+      <span>Quick filters</span>
+      <div class="chip-row">
+        <button class="chip-toggle" aria-pressed="false" data-filter="noIncomeTax">No income tax</button>
+        <button class="chip-toggle" aria-pressed="false" data-filter="cannabis">Cannabis legal</button>
+        <button class="chip-toggle" aria-pressed="false" data-filter="permitless">Permitless carry</button>
+        <button class="chip-toggle" aria-pressed="false" data-filter="ballotInit">Ballot initiatives</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="result-count" id="result-count" aria-live="polite"></p>
+
+  <div class="table-scroller" tabindex="0" role="region" aria-label="State data table (scrollable)">
+    <table class="data" id="data-table">
+      <caption class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">
+        US state statistics. Column headers are buttons that sort the table.</caption>
+      <thead id="table-head"></thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+
+  <p style="color:var(--ink-muted);font-size:.86rem;margin-top:14px">Best and worst values in each numeric column
+    are tinted green / red where a direction is meaningful. Data compiled August 2026 — see the
+    <a href="index.html#insights">homepage footer</a> for sources.</p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Sources: US Census Bureau, BEA, BLS, Zillow, Tax Foundation, CDC/NCHS, FBI, EIA, NOAA, NREL, Pew, Giffords, NCSL, HSLDA. Compiled August 2026.</p>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/explore.js"></script>
+</body>
+</html>

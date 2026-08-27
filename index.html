@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The State of the States — every US state, mapped, ranked & matched</title>
+<meta name="description" content="An interactive atlas of all 50 states + DC: cost of living, taxes, climate, politics, outdoors and more. Explore the map, dig into 90 metrics, or take a quiz to find the state that fits you.">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <a class="brand" href="index.html"><span class="flag-dot" aria-hidden="true"></span>The State of the States</a>
+  <a class="nav-link" href="index.html" aria-current="page">Map &amp; insights</a>
+  <a class="nav-link" href="explore.html">Explore the data</a>
+  <a class="nav-link" href="survey.html">Find your state</a>
+</nav>
+
+<main id="main">
+  <header class="hero">
+    <p class="kicker">50 states + DC · 90 metrics · one map</p>
+    <h1>Where in America should you actually be?</h1>
+    <p class="sub">Housing, taxes, weather, politics, parks, pizza styles — every state, measured side by side.
+      Poke the map, scroll the story, or take the quiz and let the data pick for you.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="survey.html">Find my state →</a>
+      <a class="btn" href="#insights">See the highlights</a>
+    </div>
+  </header>
+
+  <section class="map-section" aria-labelledby="map-h">
+    <div class="wrap">
+      <h2 id="map-h" style="margin:0 0 12px;font-size:1.4rem">The interactive map</h2>
+      <div class="map-panel" id="map-mount"></div>
+      <p class="map-hint">Prefer rows and columns? Everything on this map (and 70+ more metrics) is in the
+        <a href="explore.html">sortable data explorer</a>.</p>
+    </div>
+  </section>
+
+  <div id="insights">
+
+  <section class="insight" style="--accent:var(--blue)" aria-labelledby="h-move">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Migration · 2021–2025</p>
+      <h2 id="h-move">America is playing musical chairs — and the South is winning</h2>
+      <p class="lede">For every 1,000 residents, South Carolina gained 65 net movers from other states since 2021.
+        New York lost 52. That's the widest reshuffle in modern memory.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="+65">+65</div><div class="who">South Carolina</div><div class="note">net inbound movers per 1,000 residents, 2021–25</div></div>
+        <div class="stat-tile"><div class="big" data-countup="−52">−52</div><div class="who">New York</div><div class="note">net outbound movers per 1,000 residents, 2021–25</div></div>
+        <div class="stat-tile"><div class="big" data-countup="+10.4%">+10.4%</div><div class="who">Idaho</div><div class="note">fastest-growing population, 2020–25</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Biggest winners (net domestic migration per 1k)</h3>
+      <ul class="bar-list" id="bars-mig-in"></ul>
+      <h3 style="margin:22px 0 4px;font-size:1rem;color:var(--ink-2)">Biggest goodbyes</h3>
+      <ul class="bar-list" id="bars-mig-out"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--orange)" aria-labelledby="h-home">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Housing · July 2026</p>
+      <h2 id="h-home">The same front door costs 4.7× more, depending on the state line</h2>
+      <p class="lede">A typical Hawaii home runs $833,877. In West Virginia, $178,702. Measured against local
+        incomes, a West Virginia home costs about 3 years of household income — a Hawaii home costs more than 8.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="$833,877">$833,877</div><div class="who">Hawaii</div><div class="note">most expensive typical home</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$178,702">$178,702</div><div class="who">West Virginia</div><div class="note">least expensive typical home</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$1,176">$1,176</div><div class="who">Iowa</div><div class="note">lowest typical rent — Hawaii's is $3,067</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Years of median income to buy the typical home</h3>
+      <ul class="bar-list" id="bars-p2i"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--aqua)" aria-labelledby="h-pay">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Cost of living</p>
+      <h2 id="h-pay">The paycheck illusion: where $75k beats $100k</h2>
+      <p class="lede">Adjust every state's median household income for what things actually cost there, and the
+        leaderboard scrambles. Utah and New Hampshire quietly out-earn coastal giants, while a big California
+        salary shrinks in the wash.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="$97,506">$97,506</div><div class="who">Utah</div><div class="note">median income adjusted for cost of living — 4th best in the country</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$90,435">$90,435</div><div class="who">California</div><div class="note">what its $100,130 median actually buys</div></div>
+        <div class="stat-tile"><div class="big" data-countup="13%">13%</div><div class="who">Arkansas &amp; Mississippi</div><div class="note">cheaper than the national average — the lowest prices in America</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Median income, adjusted for local prices</h3>
+      <ul class="bar-list" id="bars-adj"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--yellow)" aria-labelledby="h-tax">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Taxes · 2026</p>
+      <h2 id="h-tax">The taxman takes 15.9% in New York — and 4.6% in Alaska</h2>
+      <p class="lede">Nine states charge no tax on wage income at all: Alaska, Florida, Nevada, New Hampshire,
+        South Dakota, Tennessee, Texas, Washington and Wyoming. Wyoming ranks #1 in the country for overall
+        tax competitiveness.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="9">9</div><div class="who">states</div><div class="note">with zero tax on wages</div></div>
+        <div class="stat-tile"><div class="big" data-countup="15.9%">15.9%</div><div class="who">New York</div><div class="note">heaviest state &amp; local tax burden as a share of income</div></div>
+        <div class="stat-tile"><div class="big" data-countup="13.3%">13.3%</div><div class="who">California</div><div class="note">highest top income-tax rate</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Total state &amp; local tax burden (% of income)</h3>
+      <ul class="bar-list" id="bars-tax"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--violet)" aria-labelledby="h-life">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Health &amp; safety</p>
+      <h2 id="h-life">Nine years of life separate Hawaii and Mississippi</h2>
+      <p class="lede">Life expectancy runs from 79.9 years in Hawaii to 70.9 in Mississippi. Safety has a
+        similar spread: Maine records about 100 violent crimes per 100k people — New Mexico, about 717.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="79.9">79.9</div><div class="who">Hawaii</div><div class="note">longest life expectancy (years)</div></div>
+        <div class="stat-tile"><div class="big" data-countup="100">100</div><div class="who">Maine</div><div class="note">fewest violent crimes per 100k — the safest state</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$31,629">$31,629</div><div class="who">Washington, DC</div><div class="note">highest K-12 spending per pupil; Idaho spends $10,291</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Life expectancy at birth (years)</h3>
+      <ul class="bar-list" id="bars-life"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--magenta)" aria-labelledby="h-wild">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Climate &amp; the outdoors</p>
+      <h2 id="h-wild">Pick your weather: 71°F Florida or 28°F Alaska</h2>
+      <p class="lede">Alaska has 6,640 miles of coastline and a 20,310-foot mountain. Arizona gets the most
+        sun in the nation. New York — yes, New York — has more ski areas than Colorado. America's outdoors
+        does not fit one stereotype.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="6,640">6,640</div><div class="who">Alaska</div><div class="note">miles of coastline — Michigan is #2 with 3,224 (all Great Lakes)</div></div>
+        <div class="stat-tile"><div class="big" data-countup="52">52</div><div class="who">New York</div><div class="note">ski areas, the most in America</div></div>
+        <div class="stat-tile"><div class="big" data-countup="9">9</div><div class="who">California</div><div class="note">national parks — Alaska has 8, Utah 5</div></div>
+        <div class="stat-tile"><div class="big" data-countup="$5">$5</div><div class="who">Hawaii</div><div class="note">cheapest resident fishing license in the country</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Solar resource (kWh/m²/day) — the off-grid dream tier</h3>
+      <ul class="bar-list" id="bars-solar"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--red)" aria-labelledby="h-pol">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Politics · 2024–2026</p>
+      <h2 id="h-pol">Wyoming went +46 red. Vermont went +32 blue. Wisconsin? 0.9 points.</h2>
+      <p class="lede">The 2024 map had blowouts on both flanks and a handful of true coin-flips. Meanwhile
+        recreational cannabis is now legal in 25 jurisdictions, and about half of all states let citizens
+        write laws directly onto the ballot.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="R +45.8">R +45.8</div><div class="who">Wyoming</div><div class="note">the reddest 2024 margin (DC was bluest at D +83.8)</div></div>
+        <div class="stat-tile"><div class="big" data-countup="0.9">0.9</div><div class="who">Wisconsin</div><div class="note">points — the closest state of 2024</div></div>
+        <div class="stat-tile"><div class="big" data-countup="25">25</div><div class="who">jurisdictions</div><div class="note">with legal recreational cannabis</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">The five closest states of 2024 (margin in points)</h3>
+      <ul class="bar-list" id="bars-close"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--aqua)" aria-labelledby="h-food">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Intermission</p>
+      <h2 id="h-food">The national menu</h2>
+      <p class="lede">One iconic dish per state. Yes, this section is subjective. No, we will not be taking
+        questions about the loose-meat sandwich.</p>
+      <div class="food-strip" id="food-strip"></div>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--blue)" aria-labelledby="h-cta">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal" style="text-align:center">
+      <p class="kicker">Your turn</p>
+      <h2 id="h-cta" style="margin-inline:auto">So… which state is <em>yours</em>?</h2>
+      <p class="lede" style="margin-inline:auto">Two minutes or ten — answer honestly and the data will do the rest.
+        Every one of the 51 can win.</p>
+      <div class="cta-row" style="justify-content:center;margin-top:22px">
+        <a class="btn primary" href="survey.html">Take the quiz →</a>
+        <a class="btn" href="explore.html">Browse all 90 metrics</a>
+      </div>
+    </div>
+  </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Sources:</strong> US Census Bureau, BEA, BLS, Zillow, Tax Foundation, CDC/NCHS, FBI, EIA, NOAA, NREL,
+      Pew Research Center, Giffords Law Center, NCSL, HSLDA and state agencies. Compiled August 2026.</p>
+    <p>Ranks include the District of Columbia as a 51st jurisdiction — it distorts density, crime and income
+      comparisons, so read those with a grain of salt. License prices, park counts and ski-area counts are approximate.</p>
+    <p>Map outline: Wikimedia Commons (public domain). Built for fun — verify anything before making a legal or financial decision on it.</p>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/map.js"></script>
+<script src="assets/insights.js"></script>
+</body>
+</html>

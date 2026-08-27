@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find your state — The State of the States</title>
+<meta name="description" content="Answer a few honest questions about weather, money, politics and lifestyle, and get matched to the US state that actually fits you. Short 2-minute and detailed 10-minute versions.">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <a class="brand" href="index.html"><span class="flag-dot" aria-hidden="true"></span>The State of the States</a>
+  <a class="nav-link" href="index.html">Map &amp; insights</a>
+  <a class="nav-link" href="explore.html">Explore the data</a>
+  <a class="nav-link" href="survey.html" aria-current="page">Find your state</a>
+</nav>
+
+<main id="main" class="wrap">
+  <div id="survey-app">
+    <!-- Populated by survey.js -->
+    <noscript><p>This quiz needs JavaScript. Meanwhile, the <a href="explore.html">data explorer</a> works as a table.</p></noscript>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Your answers never leave this page — everything is scored in your browser, nothing is stored or sent anywhere.</p>
+    <p>Sources: US Census Bureau, BEA, BLS, Zillow, Tax Foundation, CDC/NCHS, FBI, NOAA, NREL, Pew, Giffords, NCSL, HSLDA. Compiled August 2026.</p>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/survey.js"></script>
+</body>
+</html>
