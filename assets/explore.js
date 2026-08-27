@@ -10,8 +10,8 @@
     const g = C[k].group;
     (GROUPS[g] = GROUPS[g] || []).push(k);
   });
-  const GROUP_ORDER = ['People', 'Geography', 'Economy', 'Cost of living', 'Housing', 'Taxes', 'Health', 'Education', 'Safety', 'Climate & land', 'Politics', 'Outdoors', 'Laws', 'Culture', 'Identity'];
-  const HEADLINE = ['region', 'pop', 'income', 'homeValue', 'col', 'taxBurden', 'lifeExp', 'crime', 'temp', 'margin'];
+  const GROUP_ORDER = ['People', 'Geography', 'Economy', 'Cost of living', 'Housing', 'Taxes', 'Well-being', 'Health', 'Education', 'Safety', 'Nature & environment', 'Climate & land', 'Politics', 'Outdoors', 'On the road & water', 'Laws', 'Culture', 'Identity'];
+  const HEADLINE = ['region', 'pop', 'income', 'homeValue', 'col', 'taxBurden', 'happinessRank', 'lifeExp', 'crime', 'sceneryIdx', 'temp', 'margin'];
 
   const groupSel = document.getElementById('group-select');
   groupSel.appendChild(new Option('Headline metrics', '__headline'));
@@ -68,7 +68,9 @@
       const arrow = isSorted ? (sortDesc ? '↓' : '↑') : '';
       const ariaSort = isSorted ? (sortDesc ? 'descending' : 'ascending') : 'none';
       const label = k === 'name' ? 'State' : C[k].label;
-      return `<th scope="col" aria-sort="${ariaSort}"><button type="button" data-sort="${k}" aria-label="Sort by ${label}">${label} <span aria-hidden="true">${arrow}</span></button></th>`;
+      const desc = k === 'name' ? '' : SS.descOf(k);
+      return `<th scope="col" aria-sort="${ariaSort}" ${desc ? `title="${desc.replace(/"/g, '&quot;')}"` : ''}>
+        <button type="button" data-sort="${k}" aria-label="Sort by ${label}. ${desc}">${label} <span aria-hidden="true">${arrow}</span></button></th>`;
     }).join('') + '</tr>';
 
     // best/worst tint per column
@@ -92,7 +94,8 @@
         if (C[k].fmt === 'txt') cls = '';
         return `<td class="${cls}">${SS.fmtVal(k, v)}</td>`;
       }).join('');
-      return `<tr><td><button type="button" class="st-name" data-state="${s.abbr}" style="all:unset;cursor:pointer;font-weight:700" aria-label="Open ${s.name} profile">${s.name}</button></td>${cells}</tr>`;
+      return `<tr><td><button type="button" class="st-name" data-state="${s.abbr}" style="all:unset;cursor:pointer;font-weight:700" aria-label="Open ${s.name} profile">
+        <span class="icon-cell">${SS.stateIcon(s.abbr, 20)} ${s.name}</span></button></td>${cells}</tr>`;
     }).join('');
 
     countEl.textContent = rows.length === 51 ? 'Showing all 51 jurisdictions (50 states + DC)' :
@@ -121,6 +124,15 @@
     render();
   }));
   search.addEventListener('input', render);
+
+  // glossary
+  const gl = document.getElementById('glossary-list');
+  if (gl) {
+    const entries = Object.keys(C)
+      .filter(k => SS.descOf(k))
+      .map(k => `<dt>${C[k].label}</dt><dd>${SS.descOf(k)}</dd>`);
+    gl.innerHTML = entries.join('');
+  }
 
   render();
 })();

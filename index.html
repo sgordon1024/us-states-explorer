@@ -92,6 +92,9 @@
       </div>
       <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Median income, adjusted for local prices</h3>
       <ul class="bar-list" id="bars-adj"></ul>
+      <div class="scatter-wrap" id="scatter-pay" role="group" aria-label="Scatter plot of median income against cost of living for all 51 jurisdictions. Each dot is a state button."></div>
+      <p class="scatter-note">Every dot is a state — click one for its profile. Up = expensive, right = high-earning.
+        The magic quadrant is bottom-right: big paychecks, small price tags.</p>
     </div>
   </section>
 
@@ -130,6 +133,24 @@
     </div>
   </section>
 
+  <section class="insight" style="--accent:var(--yellow)" aria-labelledby="h-happy">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Happiness &amp; well-being · 2026</p>
+      <h2 id="h-happy">Hawaii is the happiest state. New Jersey is… fourth?!</h2>
+      <p class="lede">WalletHub's happiness index blends emotional well-being, work environment and community.
+        The podium: Hawaii, Maryland, Nebraska — with New Jersey right behind. West Virginia finishes 50th,
+        and Arkansas reports the most days of mental distress.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="#1">#1</div><div class="who">Hawaii</div><div class="note">happiest state (score 65.5 of 100)</div></div>
+        <div class="stat-tile"><div class="big" data-countup="#50">#50</div><div class="who">West Virginia</div><div class="note">the least happy (score 32.0)</div></div>
+        <div class="stat-tile"><div class="big" data-countup="12.6%">12.6%</div><div class="who">Hawaii &amp; North Dakota</div><div class="note">fewest adults reporting frequent mental distress — Arkansas has 19.9%</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Happiness score, top 8 (WalletHub 2026, 0–100)</h3>
+      <ul class="bar-list" id="bars-happy"></ul>
+    </div>
+  </section>
+
   <section class="insight" style="--accent:var(--magenta)" aria-labelledby="h-wild">
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
@@ -149,6 +170,72 @@
     </div>
   </section>
 
+  <section class="insight" style="--accent:var(--violet)" aria-labelledby="h-scenic">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">The postcard index</p>
+      <h2 id="h-scenic">The most scenic states, measured — not vibes</h2>
+      <p class="lede">We scored every state 0–100 on five equal ingredients: mountain height, coastline,
+        forest cover, national parks and public land. Alaska laps the field; the West Coast sweep is real;
+        and North Carolina sneaks into the top six on forest + peaks + shoreline.</p>
+      <div class="podium" id="podium-scenic"></div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Postcard index, top 10 (0–100)</h3>
+      <ul class="bar-list" id="bars-scenic"></ul>
+      <p class="scatter-note">Composite of percentile ranks — hover “Scenery index” anywhere on the site for the recipe. Iowa scores 13. Iowa, we still love you.</p>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--blue)" aria-labelledby="h-water">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Clean water &amp; wild things</p>
+      <h2 id="h-water">Thirteen states deliver tap water with zero serious violations</h2>
+      <p class="lede">Share of residents on community water systems with health-based violations: 0.0% in
+        thirteen states — while West Virginia (10.2%) and New Jersey (8.9%) have the most affected residents.
+        And for the animals: Oregon has America's strongest animal-protection laws, with Massachusetts and
+        Maine close behind.</p>
+      <div class="stat-row">
+        <div class="stat-tile"><div class="big" data-countup="0.0%">0.0%</div><div class="who">13 states</div><div class="note">population on water systems with serious violations — incl. HI, ME, MA, UT, NC</div></div>
+        <div class="stat-tile"><div class="big" data-countup="#1">#1</div><div class="who">Oregon</div><div class="note">strongest animal-protection laws, three years running (ALDF)</div></div>
+        <div class="stat-tile"><div class="big" data-countup="89.5%">89.5%</div><div class="who">Maine</div><div class="note">most forested state — North Dakota is 1.7%</div></div>
+      </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Most residents on systems with violations (%)</h3>
+      <ul class="bar-list" id="bars-water"></ul>
+      <h3 style="margin:22px 0 4px;font-size:1rem;color:var(--ink-2)">Strongest animal-protection laws (ALDF rank)</h3>
+      <ul class="bar-list" id="bars-animal"></ul>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--orange)" aria-labelledby="h-road">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Life on the road</p>
+      <h2 id="h-road">Where the road trip never has to end</h2>
+      <p class="lede" id="road-lede">Some states let you sleep in your vehicle at any highway rest area, skip
+        annual car inspections entirely, and camp free on vast public land. Others will knock on your window
+        at 2 a.m. Here's the freedom map for anyone who measures home in miles.</p>
+      <div class="stat-row" id="road-tiles"></div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">The road-tripper's dream tier</h3>
+      <ul class="bar-list" id="bars-road"></ul>
+      <p class="scatter-note" id="road-note"></p>
+    </div>
+  </section>
+
+  <section class="insight" style="--accent:var(--aqua)" aria-labelledby="h-boat">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap reveal">
+      <p class="kicker">Rules of the water</p>
+      <h2 id="h-boat">Where you can just… get in the boat and go</h2>
+      <p class="lede" id="boat-lede">Boating rules range from “no card, no registration, no questions” to
+        mandatory education for every operator and registration stickers on your kayak. If you like your
+        water low-paperwork, these are your states.</p>
+      <div class="stat-row" id="boat-tiles"></div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">Most relaxed boating states</h3>
+      <ul class="bar-list" id="bars-boat"></ul>
+      <p class="scatter-note" id="boat-note"></p>
+    </div>
+  </section>
+
   <section class="insight" style="--accent:var(--red)" aria-labelledby="h-pol">
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap reveal">
@@ -162,6 +249,9 @@
         <div class="stat-tile"><div class="big" data-countup="0.9">0.9</div><div class="who">Wisconsin</div><div class="note">points — the closest state of 2024</div></div>
         <div class="stat-tile"><div class="big" data-countup="25">25</div><div class="who">jurisdictions</div><div class="note">with legal recreational cannabis</div></div>
       </div>
+      <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">All 51, bluest to reddest — every bar is a state</h3>
+      <div class="strip-51" id="strip-politics" role="group" aria-label="All 51 jurisdictions ordered from most Democratic to most Republican 2024 margin. Each bar is a state button."></div>
+      <div class="strip-caption"><span>← DC, D +84</span><span>Wyoming, R +46 →</span></div>
       <h3 style="margin:30px 0 4px;font-size:1rem;color:var(--ink-2)">The five closest states of 2024 (margin in points)</h3>
       <ul class="bar-list" id="bars-close"></ul>
     </div>
@@ -201,7 +291,8 @@
       Pew Research Center, Giffords Law Center, NCSL, HSLDA and state agencies. Compiled August 2026.</p>
     <p>Ranks include the District of Columbia as a 51st jurisdiction — it distorts density, crime and income
       comparisons, so read those with a grain of salt. License prices, park counts and ski-area counts are approximate.</p>
-    <p>Map outline: Wikimedia Commons (public domain). Built for fun — verify anything before making a legal or financial decision on it.</p>
+    <p>Map outline: Wikimedia Commons (public domain). Built for fun — verify anything before making a legal or financial decision on it.
+      · <a href="explore.html#glossary">Glossary</a> · <a href="analytics.html">Quiz response analytics</a></p>
   </div>
 </footer>
 

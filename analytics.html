@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Response analytics — The State of the States</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <a class="brand" href="index.html"><span class="flag-dot" aria-hidden="true"></span>The State of the States</a>
+  <a class="nav-link" href="index.html">Map &amp; insights</a>
+  <a class="nav-link" href="explore.html">Explore the data</a>
+  <a class="nav-link" href="survey.html">Find your state</a>
+</nav>
+
+<main id="main" class="wrap">
+  <h1 style="margin:34px 0 6px;font-size:clamp(1.7rem,4.5vw,2.4rem)">Quiz response analytics</h1>
+  <p style="color:var(--ink-2);max-width:66ch">Every completed quiz on <strong>this device/browser</strong> is
+    recorded locally (nothing is sent anywhere by default). Download the file below and hand it to a Claude
+    thread — it's structured JSON with the mode, every answer, the winner and the top-5 for each response.
+    To pool responses from <em>all</em> visitors into a Google Sheet, see the note at the bottom.</p>
+
+  <div class="an-actions">
+    <button class="btn primary" id="dl-json">Download JSON</button>
+    <button class="btn" id="dl-csv">Download CSV</button>
+    <button class="btn" id="clear" style="border-color:rgba(240,161,161,.5);color:#f0a1a1">Clear this device's data</button>
+  </div>
+
+  <div id="dash"></div>
+
+  <h2 style="margin-top:44px;font-size:1.2rem">Pooling responses from every visitor</h2>
+  <p style="color:var(--ink-2);max-width:70ch;font-size:.95rem">This site is static (GitHub Pages), so there's no
+    server to collect responses on. The zero-cost fix: create a Google Form with one Paragraph question, link it
+    to a Sheet, and paste its two IDs into <code>assets/analytics-config.js</code> (instructions are in that file).
+    From then on every visitor's completed quiz is appended to your Sheet as one JSON row — a live file you can
+    point Claude at any time.</p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p>Responses contain no names, accounts, or identifiers — just quiz answers and timestamps.</p></div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/analytics-config.js"></script>
+<script src="assets/analytics.js"></script>
+<script>
+(function () {
+  'use strict';
+  const A = window.SSAnalytics, SS = window.SS, S = window.STATES;
+  const dash = document.getElementById('dash');
+
+  function render() {
+    const list = A.all();
+    if (!list.length) {
+      dash.innerHTML = '<div class="an-empty"><p><strong>No responses recorded on this device yet.</strong></p>' +
+        '<p>Take the <a href="survey.html">quiz</a> once and come back — every completion lands here.</p></div>';
+      return;
+    }
+    const byWinner = {};
+    let scoreSum = 0, longN = 0;
+    list.forEach(r => {
+      byWinner[r.winner] = (byWinner[r.winner] || 0) + 1;
+      scoreSum += r.score || 0;
+      if (r.mode === 'long') longN++;
+    });
+    const winners = Object.entries(byWinner).sort((a, b) => b[1] - a[1]);
+    const maxW = winners[0][1];
+    const name = ab => (S.find(s => s.abbr === ab) || { name: ab }).name;
+
+    dash.innerHTML = `
+      <div class="an-grid">
+        <div class="stat-tile"><div class="big">${list.length}</div><div class="who">responses</div><div class="note">recorded on this device</div></div>
+        <div class="stat-tile"><div class="big">${(scoreSum / list.length).toFixed(0)}%</div><div class="who">average match score</div></div>
+        <div class="stat-tile"><div class="big">${longN} / ${list.length - longN}</div><div class="who">long / short quizzes</div></div>
+        <div class="stat-tile"><div class="big">${name(winners[0][0])}</div><div class="who">most common match</div><div class="note">won ${winners[0][1]} time${winners[0][1] > 1 ? 's' : ''}</div></div>
+      </div>
+      <h2 style="font-size:1.1rem;margin:26px 0 8px">Winning states</h2>
+      <ul class="bar-list" style="--accent:var(--blue)">
+        ${winners.map(([ab, n]) => `<li>
+          <span class="bl-name">${name(ab)}</span>
+          <span class="bl-track"><span class="bl-fill" style="width:${(n / maxW * 100).toFixed(0)}%"></span></span>
+          <span class="bl-val">${n}</span></li>`).join('')}
+      </ul>
+      <h2 style="font-size:1.1rem;margin:26px 0 8px">Raw responses</h2>
+      <div class="table-scroller" style="max-height:40vh">
+        <table class="data"><thead><tr><th>When</th><th>Mode</th><th>Winner</th><th>Score</th><th>Top 5</th></tr></thead>
+        <tbody>${list.slice().reverse().map(r => `<tr>
+          <td>${new Date(r.ts).toLocaleString()}</td><td>${r.mode}</td>
+          <td>${name(r.winner)}</td><td class="num">${(r.score || 0).toFixed(0)}%</td>
+          <td>${(r.top5 || []).join(' · ')}</td></tr>`).join('')}</tbody></table>
+      </div>`;
+  }
+
+  document.getElementById('dl-json').addEventListener('click', () => {
+    const payload = {
+      exported: new Date().toISOString(),
+      site: 'The State of the States — find-your-state quiz responses',
+      schema: 'v: version, ts: ISO timestamp, mode: long|short, answers: {questionId:[chosenOptionIndexes]}, winner: state abbr, score: 0-100 match, top5: state abbrs',
+      responses: A.all()
+    };
+    A.download('state-quiz-responses.json', JSON.stringify(payload, null, 2), 'application/json');
+  });
+  document.getElementById('dl-csv').addEventListener('click', () => {
+    A.download('state-quiz-responses.csv', A.toCSV(A.all()), 'text/csv');
+  });
+  document.getElementById('clear').addEventListener('click', () => {
+    if (confirm('Delete all responses stored in this browser? This cannot be undone.')) { A.clearAll(); render(); }
+  });
+  render();
+})();
+</script>
+</body>
+</html>

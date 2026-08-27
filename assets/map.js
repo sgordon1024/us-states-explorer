@@ -19,7 +19,11 @@
     { key: 'margin', kind: 'div', note: '2024 presidential margin: blue = Dem, red = GOP' },
     { key: 'urban', kind: 'seq', note: '2020 Census urban share' },
     { key: 'religiosity', kind: 'seq', note: 'Pew 2023–24: religion “very important”' },
-    { key: 'bachelors', kind: 'seq', note: 'Census ACS educational attainment' }
+    { key: 'bachelors', kind: 'seq', note: 'Census ACS educational attainment' },
+    { key: 'wellbeingScore', kind: 'seq', note: 'WalletHub 2026 — brighter = happier' },
+    { key: 'sceneryIdx', kind: 'seq', note: 'Composite: peaks, coast, forest, parks, public land' },
+    { key: 'forestPct', kind: 'seq', note: 'USDA Forest Service — share of land forested' },
+    { key: 'waterViol', kind: 'seq', note: 'EPA/AHR — brighter = MORE residents on systems with violations (lower is better)' }
   ];
   // fix migDom note
   OVERLAYS.find(o => o.key === 'migDom').note = 'Census 2021–25 — red = net inflow, blue = net outflow (per 1k residents)';

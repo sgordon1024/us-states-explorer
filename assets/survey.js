@@ -319,14 +319,190 @@
             faith, healthcare, mountains, momentum and more. Much sharper matches.</p>
           <button class="btn primary" data-mode="long">Start the full quiz</button>
         </div>
+        <div class="pick-card">
+          <h2>The mixing board</h2>
+          <p><strong>No questions — just faders.</strong> Drag 20 sliders and watch your state flip in real time.
+            Save the mixes you like, name them, come back to them.</p>
+          <button class="btn primary" data-mode="mixer">Open the mixing board</button>
+        </div>
       </div>
       <p style="color:var(--ink-muted);font-size:.9rem">Skipping a question just means it won't count — “no preference” is always a legitimate answer.</p>`;
     app.querySelectorAll('button[data-mode]').forEach(b => b.addEventListener('click', () => {
       mode = b.dataset.mode;
+      if (mode === 'mixer') { renderMixer(); return; }
       bank = mode === 'short' ? SHORT_QS : LONG_QS;
       answers = {}; step = 0;
       renderStep();
     }));
+  }
+
+  // ==================== THE MIXING BOARD ====================
+  const FADERS = [
+    { m: 'temp', name: 'Temperature', left: '❄️ Snowbound', right: 'Sunburnt 🔥' },
+    { m: 'precip', name: 'Sky', left: '🌵 Desert dry', right: 'Rainforest lush 🌧️' },
+    { m: 'solar', name: 'Solar potential', left: 'Cloud cover', right: 'Solar-farm sky ☀️' },
+    { m: 'urban', name: 'Setting', left: '🌾 Deep country', right: 'Skyline views 🏙️' },
+    { m: 'col', name: 'Cost of living', left: '💸 Shoestring cheap', right: 'Spare no expense' },
+    { m: 'homeValue', name: 'Home prices', left: '🏡 Starter-home cheap', right: 'Trophy-home pricey' },
+    { m: 'incomeAdj', name: 'Buying power', left: 'Modest wages', right: 'Paycheck power 💪' },
+    { m: 'taxBurden', name: 'Taxes', left: '🪶 Tiny tax bill', right: 'Big public services' },
+    { m: 'margin', name: 'Politics', left: '🔵 Deep blue', right: 'Deep red 🔴' },
+    { m: 'religiosity', name: 'Faith', left: 'Fully secular', right: 'Deeply devout 🙏' },
+    { m: '_gunStrict', name: 'Gun laws', left: '🤠 Gun country', right: 'Strictly regulated' },
+    { m: 'crime', name: 'Streets', left: '🕊️ Sleepy-town safe', right: 'Big-city edge' },
+    { m: 'highPoint', name: 'Terrain', left: 'Flat horizons', right: 'Alpine peaks 🏔️' },
+    { m: 'coastline', name: 'Water', left: 'Landlocked', right: 'Endless shoreline 🌊' },
+    { m: 'forestPct', name: 'Tree cover', left: 'Open plains', right: 'Deep forest 🌲' },
+    { m: 'skiAreas', name: 'Snow sports', left: 'No lift lines', right: 'Ski-town life 🎿' },
+    { m: 'fedLand', name: 'Land ownership', left: 'Private acres', right: 'Public wilderness 🏕️' },
+    { m: 'migDom', name: 'Momentum', left: '💎 Hidden gem', right: 'Boomtown buzz 🚀' },
+    { m: 'medianAge', name: 'The crowd', left: '🎓 Young', right: 'Seasoned 👴' },
+    { m: 'bachelors', name: 'Vibe', left: '🔧 Hands-on', right: 'Highly degreed 📚' }
+  ];
+  const BUILTIN_PRESETS = [
+    { name: '🌵 Desert hermit', builtin: true, pos: { temp: 72, precip: 4, solar: 96, urban: 6, col: 18, taxBurden: 12, fedLand: 92, coastline: 8, crime: 40 } },
+    { name: '🎿 Powder chaser', builtin: true, pos: { temp: 8, skiAreas: 97, highPoint: 88, fedLand: 78, forestPct: 70, urban: 38 } },
+    { name: '🌴 Sunbelt boomtown', builtin: true, pos: { temp: 88, coastline: 90, migDom: 90, urban: 72, taxBurden: 20, solar: 80 } },
+    { name: '🌲 Quiet forest', builtin: true, pos: { forestPct: 94, urban: 10, crime: 6, precip: 74, migDom: 28, medianAge: 78 } }
+  ];
+  const PRESET_KEY = 'sots-mixer-presets-v1';
+  function userPresets() {
+    try { return JSON.parse(localStorage.getItem(PRESET_KEY) || '[]'); } catch (e) { return []; }
+  }
+  function saveUserPresets(list) {
+    try { localStorage.setItem(PRESET_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+
+  function renderMixer() {
+    const faders = FADERS.filter(f => C[f.m] || f.m.startsWith('_'));
+    app.innerHTML = `
+      <h1 style="margin:26px 0 4px;font-size:clamp(1.6rem,4.5vw,2.4rem)">The mixing board</h1>
+      <p style="color:var(--ink-2);max-width:64ch;margin-top:2px">Every fader starts in the middle — meaning
+        “don’t care.” Drag any of them toward what you want and your state updates live. The further you push,
+        the more it counts.</p>
+
+      <div class="mixer-result" aria-live="polite">
+        <div class="mr-stage" id="mr-stage">
+          <div class="mr-card mr-swap-in"><div class="mr-q" aria-hidden="true">?</div>
+            <div class="mr-sub">Touch a fader to summon a state</div></div>
+        </div>
+      </div>
+
+      <div class="preset-bar" id="preset-bar" role="group" aria-label="Presets"></div>
+
+      <div class="fader-board" id="fader-board">
+        ${faders.map((f, i) => `
+          <div class="fader" data-m="${f.m}">
+            <div class="f-name"><span>${f.name}</span><span class="f-live" data-live></span></div>
+            <input type="range" min="0" max="100" value="50" step="1" data-i="${i}"
+              aria-label="${f.name}: ${f.left.replace(/[^\w '’-]/g, '').trim()} to ${f.right.replace(/[^\w '’-]/g, '').trim()}. Center means no preference.">
+            <div class="f-ends"><span>${f.left}</span><span>${f.right}</span></div>
+          </div>`).join('')}
+      </div>
+      <div class="survey-actions">
+        <button class="btn" id="mx-reset">Reset all faders</button>
+        <button class="btn" id="mx-back">← Quiz menu</button>
+      </div>`;
+
+    const board = app.querySelector('#fader-board');
+    const stage = app.querySelector('#mr-stage');
+    let lastWinner = null, raf = 0;
+
+    function positions() {
+      const pos = {};
+      board.querySelectorAll('input[type="range"]').forEach(inp => {
+        pos[faders[+inp.dataset.i].m] = +inp.value;
+      });
+      return pos;
+    }
+    function setPositions(pos) {
+      board.querySelectorAll('input[type="range"]').forEach(inp => {
+        const m = faders[+inp.dataset.i].m;
+        inp.value = pos[m] !== undefined ? pos[m] : 50;
+      });
+      compute(true);
+    }
+    function compute(force) {
+      const pos = positions();
+      const prefs = [];
+      board.querySelectorAll('.fader').forEach(fd => {
+        const m = fd.dataset.m;
+        const p = pos[m];
+        const dev = Math.abs(p - 50) / 50;
+        const live = fd.querySelector('[data-live]');
+        if (dev < 0.06) { fd.classList.remove('f-active'); live.textContent = ''; return; }
+        fd.classList.add('f-active');
+        live.textContent = dev > 0.75 ? 'cranked' : dev > 0.4 ? 'strong' : 'gentle';
+        prefs.push(P(m, p, Math.pow(dev, 1.2) * 2.5));
+      });
+      if (!prefs.length) {
+        lastWinner = null;
+        stage.innerHTML = `<div class="mr-card mr-swap-in"><div class="mr-q" aria-hidden="true">?</div>
+          <div class="mr-sub">Touch a fader to summon a state</div></div>`;
+        return;
+      }
+      const ranked = scoreStates(prefs, [], null);
+      const top = ranked[0];
+      if (!force && top.s.abbr === lastWinner) {
+        const sc = stage.querySelector('[data-score]');
+        if (sc) sc.textContent = top.score.toFixed(0) + '% match';
+        const rn = stage.querySelector('[data-runners]');
+        if (rn) rn.textContent = 'then ' + ranked.slice(1, 4).map(r => r.s.name).join(' · ');
+        return;
+      }
+      lastWinner = top.s.abbr;
+      stage.innerHTML = `
+        <div class="mr-card mr-swap-in">
+          <div class="mr-icon">${SS.stateIcon(top.s.abbr, 76, 'currentColor')}</div>
+          <h2>${top.s.name}</h2>
+          <div class="mr-sub">“${top.s.nickname}” · <span class="mr-score" data-score>${top.score.toFixed(0)}% match</span>
+            · <button style="all:unset;cursor:pointer;color:var(--focus);font-weight:700;text-decoration:underline" data-state="${top.s.abbr}">profile</button></div>
+          <div class="mr-runners" data-runners>then ${ranked.slice(1, 4).map(r => r.s.name).join(' · ')}</div>
+        </div>`;
+      stage.querySelector('button[data-state]').addEventListener('click', (e) => SS.openStateDialog(e.target.dataset.state));
+    }
+    board.addEventListener('input', () => {
+      // rAF keeps drags fluid; the timeout path covers hidden/background tabs where rAF never fires
+      if (document.hidden) { clearTimeout(raf); raf = setTimeout(() => compute(false), 30); }
+      else { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => compute(false)); }
+    });
+
+    // ----- presets -----
+    const bar = app.querySelector('#preset-bar');
+    function renderPresets() {
+      const users = userPresets();
+      bar.innerHTML =
+        BUILTIN_PRESETS.map((p, i) => `
+          <span class="preset-chip builtin"><button class="load-btn" data-builtin="${i}">${esc(p.name)}</button></span>`).join('') +
+        users.map((p, i) => `
+          <span class="preset-chip"><button class="load-btn" data-user="${i}">${esc(p.name)}</button>
+            <button class="del-btn" data-del="${i}" aria-label="Delete preset ${esc(p.name)}">✕</button></span>`).join('') +
+        `<form class="save-form" id="save-form">
+           <input type="text" id="preset-name" placeholder="Name this mix…" maxlength="28" aria-label="Preset name">
+           <button class="btn" type="submit" style="padding:7px 14px;font-size:.9rem">Save mix</button>
+         </form>`;
+      bar.querySelectorAll('[data-builtin]').forEach(b => b.addEventListener('click', () =>
+        setPositions(BUILTIN_PRESETS[+b.dataset.builtin].pos)));
+      bar.querySelectorAll('[data-user]').forEach(b => b.addEventListener('click', () =>
+        setPositions(userPresets()[+b.dataset.user].pos)));
+      bar.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => {
+        const list = userPresets(); list.splice(+b.dataset.del, 1); saveUserPresets(list); renderPresets();
+      }));
+      bar.querySelector('#save-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nameEl = bar.querySelector('#preset-name');
+        const nm = nameEl.value.trim();
+        if (!nm) { nameEl.focus(); return; }
+        const list = userPresets();
+        list.push({ name: nm, pos: positions() });
+        saveUserPresets(list);
+        renderPresets();
+      });
+    }
+    renderPresets();
+
+    app.querySelector('#mx-reset').addEventListener('click', () => setPositions({}));
+    app.querySelector('#mx-back').addEventListener('click', renderPicker);
   }
 
   function renderStep() {
@@ -404,6 +580,17 @@
     const ranked = scoreStates(prefs, cats, regions);
     const top = ranked[0];
 
+    if (window.SSAnalytics) {
+      try {
+        window.SSAnalytics.record({
+          mode, answers,
+          winner: top.s.abbr,
+          score: Math.round(top.score * 10) / 10,
+          top5: ranked.slice(0, 5).map(r => r.s.abbr)
+        });
+      } catch (e) { /* analytics must never break results */ }
+    }
+
     // why-chips: strongest & weakest contributions for the winner, deduped by metric
     const seen = new Set();
     const contribs = top.detail.filter(d => { if (seen.has(d.m)) return false; seen.add(d.m); return true; });
@@ -413,6 +600,7 @@
     app.innerHTML = `
       <div class="result-hero">
         <p class="rh-kicker">Your state is</p>
+        <div style="color:var(--focus)">${SS.stateIcon(top.s.abbr, 84, 'currentColor')}</div>
         <h2>${top.s.name}</h2>
         <p class="rh-nick">“${top.s.nickname}”</p>
         <p class="rh-score">${top.score.toFixed(0)}% match${mode === 'short' ? ' · short quiz' : ''}</p>
@@ -431,7 +619,8 @@
       <ol class="runner-list">
         ${ranked.slice(1, 6).map((r, i) => `
           <li><span class="rk">${i + 2}</span>
-            <span class="nm"><button style="all:unset;cursor:pointer;font-weight:750" data-state="${r.s.abbr}">${r.s.name}</button>
+            <span class="nm"><button style="all:unset;cursor:pointer;font-weight:750" data-state="${r.s.abbr}">
+              <span class="icon-cell">${SS.stateIcon(r.s.abbr, 22)} ${r.s.name}</span></button>
               <small>${r.s.nickname}</small></span>
             <span class="sc">${r.score.toFixed(0)}%</span></li>`).join('')}
       </ol>

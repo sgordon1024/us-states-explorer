@@ -12,10 +12,14 @@ health, education, safety, climate, politics, outdoors and culture — compiled 
   climate & outdoors, politics, and one iconic food per state).
 - **`explore.html`** — the full dataset as a sortable, filterable table (category picker, region
   filter, quick toggles like *no income tax* / *cannabis legal*, state search).
-- **`survey.html`** — "Find your state": a short (8-question) and a long (24-question) quiz.
-  Answers become a target percentile profile and all 51 jurisdictions are scored against it, so
-  any state can win — extremes match extremes, middles match middles. Scoring runs entirely
-  in the browser; nothing is stored or transmitted.
+- **`survey.html`** — "Find your state", three ways: a short (8-question) quiz, a long (25-question)
+  quiz, and **the mixing board** — 20 live faders that re-match you to a state in real time, with
+  savable named presets. Answers become a target percentile profile and all 51 jurisdictions are
+  scored against it, so any state can win — extremes match extremes, middles match middles.
+- **`analytics.html`** — quiz responses are recorded anonymously in each visitor's localStorage;
+  this dashboard aggregates them and exports Claude-friendly JSON/CSV. To pool responses from all
+  visitors into one Google Sheet, wire up `assets/analytics-config.js` (a one-question Google Form
+  acts as the zero-backend sink; instructions in the file).
 
 ## Tech
 
