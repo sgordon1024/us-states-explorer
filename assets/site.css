@@ -419,6 +419,27 @@ dialog.state-dialog::backdrop { background: rgba(0, 0, 0, 0.65); }
 .save-form { display: inline-flex; gap: 6px; }
 .save-form input { padding: 7px 10px; border-radius: 999px; font-size: 0.9rem; width: 150px; }
 
+/* ---------- v4: take-home pay page ---------- */
+.pay-inputs {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 26px;
+  background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius);
+  padding: 20px; margin-top: 18px;
+}
+.pay-inputs .field { display: grid; gap: 6px; align-content: start; }
+.pay-inputs .field > span { font-size: 0.82rem; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.salary-wrap {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--surface-2); border: 1px solid var(--hairline); border-radius: 10px; padding: 4px 12px;
+  font-size: 1.35rem; font-weight: 800;
+}
+.salary-wrap input {
+  all: unset; width: 100%; font-size: 1.35rem; font-weight: 800; font-variant-numeric: tabular-nums;
+  padding: 6px 0; color: var(--ink);
+}
+.pay-inputs input[type="range"] { width: 100%; accent-color: var(--focus); }
+#pay-table td, #pay-table th { text-align: right; }
+#pay-table td:first-child, #pay-table th:first-child { text-align: left; }
+
 /* ---------- v3: statehood timeline ---------- */
 .timeline { position: relative; height: 128px; margin: 26px 0 10px; }
 .timeline .tl-track { position: absolute; left: 0; right: 0; top: 56px; height: 2px; background: var(--grid); }

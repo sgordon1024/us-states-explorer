@@ -16,6 +16,9 @@ health, education, safety, climate, politics, outdoors and culture — compiled 
   quiz, and **the mixing board** — 20 live faders that re-match you to a state in real time, with
   savable named presets. Answers become a target percentile profile and all 51 jurisdictions are
   scored against it, so any state can win — extremes match extremes, middles match middles.
+- **`paycheck.html`** — enter a salary + filing status and compare estimated take-home pay across all
+  51 jurisdictions using 2026 federal and state brackets (Tax Foundation), FICA, and an optional
+  cost-of-living adjustment. Client-side only; clearly-documented approximations (no local taxes/credits).
 - **`analytics.html`** — quiz responses are recorded anonymously in each visitor's localStorage;
   this dashboard aggregates them and exports Claude-friendly JSON/CSV. To pool responses from all
   visitors into one Google Sheet, wire up `assets/analytics-config.js` (a one-question Google Form

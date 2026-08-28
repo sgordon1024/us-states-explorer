@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Take-home pay by state — The State of the States</title>
+<meta name="description" content="Enter a salary and compare estimated take-home pay across all 50 states + DC, using 2026 federal and state income-tax brackets — with a cost-of-living adjustment.">
+<link rel="stylesheet" href="assets/site.css?v=4">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <a class="brand" href="index.html"><span class="flag-dot" aria-hidden="true"></span>The State of the States</a>
+  <a class="nav-link" href="index.html">Map &amp; insights</a>
+  <a class="nav-link" href="explore.html">Explore the data</a>
+  <a class="nav-link" href="paycheck.html" aria-current="page">Take-home pay</a>
+  <a class="nav-link" href="survey.html">Find your state</a>
+</nav>
+
+<main id="main" class="wrap">
+  <h1 style="margin:34px 0 6px;font-size:clamp(1.7rem,4.5vw,2.6rem)">Take-home pay, state by state</h1>
+  <p style="color:var(--ink-2);max-width:66ch">Enter a wage salary and see the estimated annual take-home —
+    after 2026 federal income tax, Social Security and Medicare, and each state's income tax — in all 50
+    states and DC. Nothing you type leaves this page.</p>
+
+  <div class="pay-inputs" role="group" aria-label="Salary and filing inputs">
+    <div class="field">
+      <span><label for="salary-in">Annual salary</label></span>
+      <div class="salary-wrap"><span aria-hidden="true">$</span>
+        <input type="text" id="salary-in" inputmode="numeric" autocomplete="off" value="85,000"
+          aria-describedby="salary-help"></div>
+      <input type="range" id="salary-slider" min="20000" max="500000" step="5000" value="85000"
+        aria-label="Salary slider">
+    </div>
+    <div class="field">
+      <span id="filing-lbl">Filing status</span>
+      <div class="chip-row" role="radiogroup" aria-labelledby="filing-lbl">
+        <button class="chip-toggle" role="radio" aria-checked="true" data-status="single">Single</button>
+        <button class="chip-toggle" role="radio" aria-checked="false" data-status="married">Married filing jointly</button>
+      </div>
+    </div>
+    <div class="field">
+      <span><label for="home-state">Compare against (optional)</label></span>
+      <select id="home-state"><option value="">— no comparison state —</option></select>
+    </div>
+  </div>
+  <p class="map-hint" id="salary-help">Wage income only, standard deduction, no dependents or credits, no local
+    income taxes — see the notes below the table.</p>
+
+  <div class="stat-row" id="pay-tiles" style="margin-top:20px"></div>
+
+  <h2 style="margin:34px 0 8px;font-size:1.25rem" id="pay-table-h">All 51, ranked by take-home pay</h2>
+  <div class="table-scroller" style="max-height:none" tabindex="0" role="region" aria-labelledby="pay-table-h">
+    <table class="data" id="pay-table">
+      <thead>
+        <tr><th scope="col">State</th><th scope="col">State income tax</th><th scope="col">Effective state rate</th>
+          <th scope="col">Take-home / yr</th><th scope="col">Take-home / mo</th>
+          <th scope="col" id="delta-col">vs comparison</th>
+          <th scope="col" title="Take-home divided by the state's cost-of-living index (US=100) — what the money is worth at local prices">Adjusted for local prices</th>
+          <th scope="col" style="width:120px">&nbsp;</th></tr>
+      </thead>
+      <tbody id="pay-body"></tbody>
+    </table>
+  </div>
+
+  <section style="margin-top:34px;max-width:74ch">
+    <h2 style="font-size:1.15rem">What this estimate includes — and what it doesn't</h2>
+    <ul style="color:var(--ink-2);font-size:.94rem;line-height:1.7">
+      <li><strong>Included:</strong> 2026 federal income-tax brackets and standard deduction; Social Security
+        (6.2% up to the 2026 wage base) and Medicare (1.45% + 0.9% above $200k/$250k); each state's 2026
+        income-tax brackets, standard deduction and personal exemption (Tax Foundation).</li>
+      <li><strong>Not included:</strong> local income taxes (they matter in Maryland, New York City, and many
+        Ohio, Pennsylvania, Indiana, Kentucky and Michigan localities), tax credits, itemized deductions,
+        pre-tax benefits (401k, health premiums), capital gains, and self-employment tax.</li>
+      <li>States that allow deducting federal taxes or use unusual bases (e.g., Alabama, Louisiana, Missouri,
+        Montana, Oregon) are approximated with their published brackets — actual liability there can differ.</li>
+      <li>The “adjusted for local prices” column divides take-home pay by the state's BEA cost-of-living index —
+        a rough gauge of what the money buys locally, not a tax figure.</li>
+      <li>Estimates for comparison only — not tax advice.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Tax parameters: Tax Foundation, State Individual Income Tax Rates and Brackets (2026); IRS 2026
+      inflation adjustments. Cost-of-living index: BEA Regional Price Parities. Estimates, not advice.</p>
+    <p><a href="explore.html#glossary">Glossary</a> · <a href="analytics.html">Quiz response analytics</a></p>
+  </div>
+</footer>
+
+<script src="assets/data.js?v=4"></script>
+<script src="assets/common.js?v=4"></script>
+<script src="assets/taxdata.js?v=4"></script>
+<script src="assets/paycheck.js?v=4"></script>
+</body>
+</html>
